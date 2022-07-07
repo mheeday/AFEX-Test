@@ -1,0 +1,125 @@
+{% extends "app/crm/layout.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="row container-fluid abc">
+    <small> 
+    <h5  class="col-md-12 container-fluid" > {{ title }} </h5>
+    <article class="container-fluid">
+        <div class="article-metadata">
+            <h6> Personal Information </h6> 
+            
+            <table class="table table-borderless table-sm"> 
+                <tbody>
+                    <tr> 
+                        <th scope="row"> First Name: </th>
+                        <td> {{ client.first_name }} </td>
+                    </tr>
+
+                    <tr> 
+                        <th scope="row"> Last Name: </th>
+                        <td> {{ client.last_name }} </td>
+                    </tr>
+
+                    <tr> 
+                        <th scope="row"> Country Code: </th>
+                        <td> {{ client.country_code }} </td>
+                    </tr>
+
+                    <tr> 
+                        <th scope="row"> Email: </th>
+                        <td> {{ client.email }} </td>
+                    </tr>
+
+                    <tr> 
+                        <th scope="row"> Address: </th>
+                        <td> {{ client.address }} </td>
+                    </tr>    
+                    
+                    <tr> 
+                        <th scope="row"> Phone: </th>
+                        <td> {{ client.phone }} </td>
+                    </tr>                       
+                </tbody>            
+            </table>
+        
+            <small class="text-muted"> <b> Date Created: </b> {{ client.created }} </small>
+            <small class="text-muted"> <b> Last Updated: </b> {{ client.updated }} </small>
+
+            <hr>
+
+            <h6> Finance </h6>
+
+            <table class="table-borderless table-sm">
+                    {% if client_wallet %}
+
+                    <thead>
+                        <tr>
+                            <th scope="col"> Total Balance: </th>
+                            <th scope="col"> Available Balance: </th>
+                            <th scope="col"> Lien Balance: </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> $ {{ client_wallet.total_balance }} </td>
+                            <td> $ {{ client_wallet.available_balance }} </td>
+                            <td> $ {{ client_wallet.lien_balance }} </td>
+                        </tr>                   
+                    </tbody>
+                    {% else %}
+                    <tbody>
+                    <a class="mr-2 text-muted col-md-12 "> <b> No financial data </b> </a>
+                    </tbody>
+                    {% endif %}
+            </table>
+
+            <div>
+            {% if client_wallet %}
+            <small class="text-muted"> <b> Date Created: </b> {{ client_wallet.created }} </small>
+            <small class="text-muted"> <b> Last Updated: </b> {{ client_wallet.updated }} </small>
+            {% endif %}
+            </div>
+
+            <hr>
+
+            <a href="{% url 'update_client' client.cid %}"> <button class="btn btn-primary btn-sm m-1"> Update Client Info </button> </a>
+            <a> <button class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#exampleModal"> Delete Client </button> </a>
+            <a href="{% url 'update_wallet' client.cid %}"> <button class="btn btn-outline-info btn-sm m-1"> Update Client Wallet </button> </a>
+            <a href="{% url 'client_websocket' client.cid %}"> <button class="btn btn-primary-info btn-sm m-1"> Check Wallet WebSocket </button> </a>
+            </small>
+
+        </div>
+    </article>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete {{ client.full_name }} from database ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm m-1" data-dismiss="modal"> No, Close</button>
+          <a href="{% url 'delete_client' client.cid %}"> <button type="button" class="btn btn-danger btn-sm m-1"> Yes, Delete </button> </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>
+
+
+
+{% endblock content %}
+

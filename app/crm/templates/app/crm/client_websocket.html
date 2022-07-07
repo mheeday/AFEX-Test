@@ -1,0 +1,61 @@
+{% extends "app/crm/layout.html" %}
+{% load static %}
+{% block content %}
+
+<div class="row container-fluid">
+
+  <h3  class="col-md-12 container-fluid" > {{ title }} </h3>
+
+  <h3  class="col-md-12 container-fluid" > ----------------------------- </h3>
+  <h6 class="col-md-12 container-fluid">  {{ client.full_name }} </h6>
+  <h3  class="col-md-12 container-fluid" > ----------------------------- </h3>
+
+
+  <small> 
+  <table class="table-borderless table-sm">
+    {% if wallet %}
+    <thead>
+        <tr>
+            <th scope="col"> Total Balance: </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td id="tb"> $ {{ wallet.total_balance }} </td>
+        </tr>                   
+    </tbody>
+
+    {% else %}
+    <tbody>
+    <a class="mr-2 text-muted col-md-12 "> <b> No financial data </b> </a>
+    </tbody>
+    {% endif %}
+</table>
+</small>
+
+    <script type="text/javascript">
+        let url = `ws://${window.location.host}/ws/socket-server/`
+
+        const clientSocket =  new WebSocket(url)
+
+        clientSocket.onmessage = function(e) {
+            let data = JSON.parse(e.data);
+            console.log('Data:', data);
+            console.log(data.type);
+
+            if (data.type === "chat_message") {
+                console.log((typeof data))
+
+                document.getElementById("tb").innerHTML = data.wallet_data;
+            }
+
+        };
+
+        clientSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+    </script>
+
+</div>
+
+{% endblock content %}

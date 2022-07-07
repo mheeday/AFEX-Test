@@ -1,0 +1,39 @@
+{% extends "app/crm/layout.html" %}
+{% load static %}
+{% block content %}
+
+<div class="row container-fluid abc">
+    <h1  class="col-md-12 container-fluid" > {{ title }} </h1>
+
+   <table class="table">
+        <thead>
+            <tr>
+            <th scope="col"> S/N </th>
+            <th scope="col"> Full Name </th>
+            </tr>
+        </thead>
+
+        <tbody> 
+            {% for client in clients %}
+                <tr>
+                    <th scope="row"> {{ forloop.counter }} </th>
+                    <td> <a href="{% url 'details' client.cid %}"> {{ client.full_name }}  </a> </td>
+                </tr>
+
+            {% empty %}
+
+            <tr>
+                <th scope="row"> </th>
+                <td> No data to display </td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table> 
+
+
+
+</div>
+
+
+{% endblock content %}

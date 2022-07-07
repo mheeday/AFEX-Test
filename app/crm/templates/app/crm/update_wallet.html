@@ -1,0 +1,17 @@
+{% extends "app/crm/layout.html" %}
+<h5  class="col-md-12 container-fluid" > {{ title }} </h5>
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4"> Create Client </legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit"> Update Wallet </button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
