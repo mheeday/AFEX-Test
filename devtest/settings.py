@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -168,6 +169,18 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
     }
 } """
 
+""" DATABASES = {
+   'default': {
+       'ENGINE': 'django.db.backends.postgresql_psycopg2',
+       'NAME': 'afextestdb',
+       'USER': 'postgres',
+       'PASSWORD': 'postgres',
+       'HOST': '127.0.0.1',
+       'PORT': '5432',
+   }
+}
+ """
+
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -177,4 +190,11 @@ DATABASES = {
        'HOST': '127.0.0.1',
        'PORT': '5432',
    }
+}
+
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default=config('postgres://rhnpniwp:A5gkmabXpf7ea4K5lhA-nVp9QW2yFhsR@tai.db.elephantsql.com/rhnpniwp')
+    )
 }
