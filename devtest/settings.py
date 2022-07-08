@@ -132,7 +132,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY =   'django-insecure-61vr#!3)f^effz!0n3_yi4pdpxzymmxrxi(!9rxf&p(hn1ujx)'#os.environ.get('SECRET_KEY')
+SECRET_KEY =  os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
