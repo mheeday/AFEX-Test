@@ -154,6 +154,8 @@ CHANNEL_LAYERS = {
 
 
 CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
+
+
 #CELERY_RESULT_BACKEND = 'redis://127.0.0.1'
 
 
@@ -168,3 +170,6 @@ CELERY_BEAT_SCHEDULER = os.environ.get('CELERY_BEAT_SCHEDULER')
 DATABASES = {
     'default': dj_database_url.config()
 }
+
+
+
