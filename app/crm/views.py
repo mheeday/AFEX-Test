@@ -145,13 +145,20 @@ def test_API(request):
 def API_single_client(request, cid):
     try:
         client = Client.objects.get(cid=cid)
-        client_wallet, created = ClientWallet.objects.get_or_create(client=client)
-        response = create_json_response(client, client_wallet, created, sample_success_response)
-        if created:
-            client_wallet.delete()
-        return JsonResponse(response)
     except ObjectDoesNotExist:
         return JsonResponse(sample_error_response, status=404)
+
+    try:    
+        client_wallet = ClientWallet.objects.get(client=client)
+    except ObjectDoesNotExist:
+        created = True
+        response = create_json_response(client, client_wallet, created, sample_success_response)
+        return JsonResponse(response)
+
+    created = False
+    response = create_json_response(client, client_wallet, created, sample_success_response)
+    return JsonResponse(response)   
+
 
 def client_websocket(request, cid):
     client = get_object_or_404(Client, cid=cid)
