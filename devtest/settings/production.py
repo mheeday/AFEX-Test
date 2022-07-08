@@ -18,7 +18,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': os.environ.get('CHANNEL_LAYERS_BACKEND'),
         'CONFIG': {
-            "hosts": [(os.environ.get('CHANNEL_LAYERS_CONFIG_HOST'), os.environ.get('CHANNEL_LAYERS_CONFIG_PORT'))],
+            "hosts": [os.environ.get('CHANNEL_LAYERS_CONFIG_HOST', 'redis://127.0.0.1:6379')],
         },
     },
 }
