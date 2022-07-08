@@ -1,6 +1,6 @@
 from django.db import models
 from .update_ws import update_websocket
-
+ 
 
 
 class BaseModel(models.Model):
