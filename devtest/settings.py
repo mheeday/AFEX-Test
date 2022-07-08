@@ -131,36 +131,40 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-61vr#!3)f^effz!0n3_yi4pdpxzymmxrxi(!9rxf&p(hn1ujx)'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG')
 
-ALLOWED_HOSTS = ['pure-shelf-55334.herokuapp.com']
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
+
+
 
 # Channels
 CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'BACKEND': os.environ.get('CHANNEL_LAYERS_BACKEND'),
         'CONFIG': {
-            "hosts": [('redis://default:1wHdgldGEs9iWcVlm0kqcOD92Bu0SYAA@redis-17180.c55.eu-central-1-1.ec2.cloud.redislabs.com', 17180)],
+            "hosts": [(os.environ.get('CHANNEL_LAYERS_CONFIG_HOST'), os.environ.get('CHANNEL_LAYERS_CONFIG_PORT'))],
         },
     },
 }
 
-CELERY_BROKER_URL = 'redis://default:1wHdgldGEs9iWcVlm0kqcOD92Bu0SYAA@redis-17180.c55.eu-central-1-1.ec2.cloud.redislabs.com:17180'
 
+
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
 #CELERY_RESULT_BACKEND = 'redis://127.0.0.1'
 
-CELERY_RESULT_BACKEND = 'django-db'
-CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND')
+CELERY_BEAT_SCHEDULER = os.environ.get('CELERY_BEAT_SCHEDULER')
 
 
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
 
 DATABASES = {
     'default': dj_database_url.config()
