@@ -22,7 +22,7 @@ def debug_task(self):
 app.conf.beat_schedule = {
     'database-update-1-hour': {
     'task': 'app.crm.tasks.populatedb',
-    'schedule': 10,
+    'schedule': 60*60,
     'args': ('yes', ),
     },
 }
