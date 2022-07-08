@@ -102,11 +102,15 @@ def update_client(request, cid):
 
 def delete_client(request, cid):
     client = get_object_or_404(Client, cid= cid)
-    client_wallet, created = ClientWallet.objects.get_or_create(client=client)
-    client_wallet.delete()
-    client.delete()
-    msg = f"--.{client.full_name} Deleted"
-    return redirect('index', msg)
+    try:
+        client_wallet = ClientWallet.objects.get(client=client)
+        client_wallet.delete()
+    except:
+        pass
+    finally:
+        client.delete()
+        msg = f"--.{client.full_name} Deleted"
+        return redirect('index', msg)
 
 
 def update_wallet(request, cid):
