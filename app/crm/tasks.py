@@ -39,4 +39,3 @@ def populatedb(yes):
 
     finally:
         return True
-
