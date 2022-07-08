@@ -12,7 +12,6 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
 
 
 
-
 # Channels
 CHANNEL_LAYERS = {
     'default': {
@@ -22,8 +21,6 @@ CHANNEL_LAYERS = {
         },
     },
 }
-
-
 
 
 
