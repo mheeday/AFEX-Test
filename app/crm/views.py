@@ -143,8 +143,10 @@ def test_API(request):
     return JsonResponse(sample_success_response)
 
 def API_single_client(request, cid):
+    client = Client()
     try:
-        client = Client.objects.get(cid=cid)
+        clientx = Client.objects.get(cid=cid)
+        client = clientx
     except ObjectDoesNotExist:
         return JsonResponse(sample_error_response, status=404)
 
