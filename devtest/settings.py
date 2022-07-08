@@ -130,9 +130,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-from .common import *
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-61vr#!3)f^effz!0n3_yi4pdpxzymmxrxi(!9rxf&p(hn1ujx)'
 
