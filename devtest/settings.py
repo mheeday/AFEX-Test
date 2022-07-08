@@ -144,13 +144,13 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
+            "hosts": [('redis://default:1wHdgldGEs9iWcVlm0kqcOD92Bu0SYAA@redis-17180.c55.eu-central-1-1.ec2.cloud.redislabs.com', 17180)],
         },
     },
 }
 
 CELERY_BROKER_URL = 'redis://default:1wHdgldGEs9iWcVlm0kqcOD92Bu0SYAA@redis-17180.c55.eu-central-1-1.ec2.cloud.redislabs.com:17180'
-#CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+
 #CELERY_RESULT_BACKEND = 'redis://127.0.0.1'
 
 CELERY_RESULT_BACKEND = 'django-db'
