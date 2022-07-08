@@ -1,6 +1,6 @@
 from .common import *
 import os
-
+import dj_database_url
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
@@ -40,12 +40,7 @@ CELERY_BEAT_SCHEDULER = os.environ.get('CELERY_BEAT_SCHEDULER')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-   'default': {
-       'ENGINE': os.environ.get('DATABASES_ENGINE'),
-       'NAME': os.environ.get('DATABASES_NAME'),
-       'USER': os.environ.get('DATABASES_USER'),
-       'PASSWORD': os.environ.get('DATABASES_PASSWORD'),
-       'HOST': os.environ.get('DATABASES_HOST'),
-       'PORT': os.environ.get('DATABASES_PORT'),
-   }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
 }
