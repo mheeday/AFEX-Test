@@ -154,10 +154,10 @@ def API_single_client(request, cid):
         created = True
         response = create_json_response(client, client_wallet, created, sample_success_response)
         return JsonResponse(response)
-
-    created = False
-    response = create_json_response(client, client_wallet, created, sample_success_response)
-    return JsonResponse(response)   
+    finally: 
+        created = False
+        response = create_json_response(client, client_wallet, created, sample_success_response)
+        return JsonResponse(response)   
 
 
 def client_websocket(request, cid):
