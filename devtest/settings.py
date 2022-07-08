@@ -123,7 +123,7 @@ STATIC_ROOT = (BASE_DIR / "staticfiles")
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    (BASE_DIR / "app/crm/")
+    os.path.join(BASE_DIR, "app/crm")
 )
 
 
