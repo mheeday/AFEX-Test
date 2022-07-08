@@ -194,7 +194,5 @@ DATABASES = {
 
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=config('postgres://rhnpniwp:A5gkmabXpf7ea4K5lhA-nVp9QW2yFhsR@tai.db.elephantsql.com/rhnpniwp')
-    )
+    'default': dj_database_url.config('postgres://rhnpniwp:A5gkmabXpf7ea4K5lhA-nVp9QW2yFhsR@tai.db.elephantsql.com/rhnpniwp')
 }
