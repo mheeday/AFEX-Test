@@ -115,7 +115,11 @@ def delete_client(request, cid):
 
 def update_wallet(request, cid):
     client = get_object_or_404(Client, cid= cid)
-    client_wallet, _ = ClientWallet.objects.get_or_create(client=client)
+    try:
+        client_wallet = ClientWallet.objects.get(client=client)
+    except ObjectDoesNotExist:
+        client_wallet = ClientWallet(client=client)
+        client_wallet.save()
 
     if request.method == 'POST':
         form = UpdateWalletForm(request.POST)
