@@ -161,5 +161,11 @@ def API_single_client(request, cid):
 
 def client_websocket(request, cid):
     client = get_object_or_404(Client, cid=cid)
-    wallet, _ = ClientWallet.objects.get_or_create(client=client)
+
+    try:
+        wallet = ClientWallet.objects.get(client=client)
+    except ObjectDoesNotExist:
+        wallet = ClientWallet(client=client)
+        wallet.save()
+
     return render(request, 'app/crm/client_websocket.html', {'title': 'Real-time Wallet Balance', 'client': client, 'wallet': wallet})
