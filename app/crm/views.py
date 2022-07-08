@@ -134,32 +134,29 @@ def update_wallet(request, cid):
     return render(request, 'app/crm/update_wallet.html', {'title': f'Update {client.first_name} Wallet','form': form})
 
 #API ROUTES
-
-
-
-
 def test_API(request):
     #json_object = json.dumps(sample_success_response, indent = 4)
     return JsonResponse(sample_success_response)
 
 def API_single_client(request, cid):
-    client = Client()
-    try:
-        clientx = Client.objects.get(cid=cid)
-        client = clientx
-    except ObjectDoesNotExist:
-        return JsonResponse(sample_error_response, status=404)
+    
+    client = Client.objects.filter(cid=cid)
 
-    try:    
-        client_wallet = ClientWallet.objects.get(client=client)
-    except ObjectDoesNotExist:
+    if len(client) != 1:
+        return JsonResponse(sample_error_response, status=404)
+    
+    client = client[0]
+
+    client_wallet = ClientWallet.objects.filter(client=client)
+
+    if len(client_wallet) != 1:
         created = True
-        response = create_json_response(client, client_wallet, created, sample_success_response)
-        return JsonResponse(response)
-    finally: 
+    else:
         created = False
-        response = create_json_response(client, client_wallet, created, sample_success_response)
-        return JsonResponse(response)   
+        client_wallet = client_wallet[0]
+
+    response = create_json_response(client, client_wallet, created, sample_success_response)
+    return JsonResponse(response)  
 
 
 def client_websocket(request, cid):
