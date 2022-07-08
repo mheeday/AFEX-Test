@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect, render, get_list_or_404
 from .models import Client, ClientWallet
 from .forms import ClientForm, UpdateWalletForm
 from django.core.exceptions import ObjectDoesNotExist
@@ -25,9 +25,8 @@ def index(request, msg=False):
     
     
 def list(request):    
-    clients = Client.objects.all()
-    if clients:
-        return render(request, 'app/crm/list.html', {'title': 'Clients List', 'clients': clients})
+    clients = get_list_or_404(Client)
+    return render(request, 'app/crm/list.html', {'title': 'Clients List', 'clients': clients})
 
 def details(request, cid):
     client = get_object_or_404(Client, cid= cid)
