@@ -1,3 +1,2 @@
-web: daphne -b 0.0.0.0 -p 8001 devstart.asgi:application --settings=devtest.settings.development
-chatworker: celery -A devtest worker --loglevel=INFO
-scheduler: celery -A devtest beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+web: daphne devstart.asgi:application --port $port --bind 0.0.0.0 --settings=devtest.settings.development
+chatworker: celery -A devtest worker -B devtest beat --loglevel=INFO
